@@ -80,8 +80,8 @@ describe('Swap', () => {
 
     const traderTokenAccountA = await connection.getTokenAccountBalance(values.holderAccountA);
     const traderTokenAccountB = await connection.getTokenAccountBalance(values.holderAccountB);
-    expect(traderTokenAccountA.value.amount).to.equal(values.defaultSupply.sub(values.depositAmountA).sub(input).toString());
-    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultSupply.sub(values.depositAmountB).toNumber());
-    expect(Number(traderTokenAccountB.value.amount)).to.be.lessThan(values.defaultSupply.sub(values.depositAmountB).add(input).toNumber());
+    expect(traderTokenAccountA.value.amount).to.equal(values.defaultHolderAccountSupply.sub(values.depositAmountA).sub(input).toString());
+    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultHolderAccountSupply.sub(values.depositAmountB).toNumber());
+    expect(Number(traderTokenAccountB.value.amount)).to.be.lessThan(values.defaultHolderAccountSupply.sub(values.depositAmountB).add(input).toNumber());
   });
 });
