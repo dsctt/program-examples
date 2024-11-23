@@ -20,8 +20,8 @@ export const expectRevert = async (promise: Promise<any>) => {
   }
 };
 
-const defaultMintedAmount = 100
-const defaultDecimals = 6
+const defaultMintedAmount = 100;
+const defaultDecimals = 6;
 export const mintingTokens = async ({
   connection,
   creator,

@@ -39,7 +39,6 @@ describe('Swap', () => {
         poolAccountB: values.poolAccountB,
       })
       .rpc();
-
   });
 
   it('Swap from a to b, initial deposit a > b', async () => {
@@ -80,19 +79,16 @@ describe('Swap', () => {
 
     const traderTokenAccountA = await connection.getTokenAccountBalance(values.holderAccountA);
     const traderTokenAccountB = await connection.getTokenAccountBalance(values.holderAccountB);
-    expect(traderTokenAccountA.value.amount).to.equal(values.defaultHolderAccountSupply
-                                                      .sub(values.depositAmountA)
-                                                      .sub(input).toString());
-    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultHolderAccountSupply
-                                                                      .sub(values.depositAmountB).toNumber());
-    expect(Number(traderTokenAccountB.value.amount)).to.be.lessThan(values.defaultHolderAccountSupply
-                                                                    .sub(values.depositAmountB)
-                                                                    .add(input).toNumber());
+    expect(traderTokenAccountA.value.amount).to.equal(values.defaultHolderAccountSupply.sub(values.depositAmountA).sub(input).toString());
+    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultHolderAccountSupply.sub(values.depositAmountB).toNumber());
+    expect(Number(traderTokenAccountB.value.amount)).to.be.lessThan(
+      values.defaultHolderAccountSupply.sub(values.depositAmountB).add(input).toNumber(),
+    );
   });
-  
+
   it('Swap from a to b, initial deposit a < b', async () => {
-    const depositAmountA = new BN(10 * 10 ** 6)
-    const depositAmountB = new BN(30 * 10 ** 6)
+    const depositAmountA = new BN(10 * 10 ** 6);
+    const depositAmountB = new BN(30 * 10 ** 6);
     await program.methods
       .depositLiquidity(depositAmountA, depositAmountB)
       .accounts({
@@ -130,11 +126,7 @@ describe('Swap', () => {
 
     const traderTokenAccountA = await connection.getTokenAccountBalance(values.holderAccountA);
     const traderTokenAccountB = await connection.getTokenAccountBalance(values.holderAccountB);
-    expect(traderTokenAccountA.value.amount).to.equal(values.defaultHolderAccountSupply
-                                                      .sub(depositAmountA)
-                                                      .sub(input).toString());
-    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultHolderAccountSupply
-                                                                    .sub(depositAmountB)
-                                                                    .add(input).toNumber());
+    expect(traderTokenAccountA.value.amount).to.equal(values.defaultHolderAccountSupply.sub(depositAmountA).sub(input).toString());
+    expect(Number(traderTokenAccountB.value.amount)).to.be.greaterThan(values.defaultHolderAccountSupply.sub(depositAmountB).add(input).toNumber());
   });
 });
